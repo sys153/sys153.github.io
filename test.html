@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>끝말잇기 게임</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            padding: 20px;
+        }
+        #gameArea {
+            display: none;
+            margin-top: 20px;
+        }
+        input {
+            padding: 10px;
+            width: 200px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background-color: #e0e0e0;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .hero{
+            width: 25%;
+            margin-left: 70%;
+            margin-right: 10%;
+            padding-left: 50;
+            background-color:black;
+            background-image: none;
+            justify-content: center;
+            display: flex;
+            align-items: center;
+        }
+        .hero > img{
+            width: 25%;
+            margin-left: 50px;
+            gap: 25%;
+            padding: 25px;
+            display: flex;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+        .hero:nth-child(odd){
+            justify-content: flex-start;
+        }
+        .hero:nth-child(even){
+            justify-content: flex-end;
+        }
+    </style>
+</head>
+<body>
+    <h1>끝말잇기 게임</h1>
+    <button id="startButton">시작하기</button>
+    <div class="img">
+        <div class="hero"><img src="./images/n.jfif" alt="덴키">매생이</div>
+            <div class="hero"><img src="./images/d.jfif" alt="코지">미역</div>
+            <div class="hero"><img src="./images/g.jfif" alt="미네타">다시마</div>
+            <div class="hero"><img src="./images/might.jfif" alt="올마이트">개불</div>
+            <div class="hero"><img src="./images/k.jfif" alt="레드라리엇">맛조개</div>
+    </div>
+    <div id="gameArea">
+        <input type="text" id="wordInput" placeholder="단어를 입력하세요">
+        <button id="submitWord">제출</button>
+        <p id="message"></p>
+        <ul id="wordList"></ul>
+    </div>
+
+    <script>
+        let lastWord = '';
+        const startButton = document.getElementById('startButton');
+        const gameArea = document.getElementById('gameArea');
+        const wordInput = document.getElementById('wordInput');
+        const submitWord = document.getElementById('submitWord');
+        const message = document.getElementById('message');
+        const wordList = document.getElementById('wordList');
+
+        startButton.addEventListener('click', () => {
+            gameArea.style.display = 'block';
+            message.textContent = '첫 단어를 입력하세요!';
+        });
+
+        submitWord.addEventListener('click', () => {
+            const inputWord = wordInput.value.trim();
+            
+            if (inputWord === '') {
+                message.textContent = '단어를 입력하세요!';
+                return;
+            }
+
+            if (lastWord && lastWord[lastWord.length - 1] !== inputWord[0]) {
+                message.textContent = `잘못된 단어입니다! '${lastWord[lastWord.length - 1]}'로 시작해야 합니다.`;
+                return;
+            }
+
+            lastWord = inputWord;
+            const listItem = document.createElement('li');
+            listItem.textContent = inputWord;
+            wordList.appendChild(listItem);
+            wordInput.value = '';
+            message.textContent = '잘했어요! 다음 단어를 입력하세요.';
+        });
+    </script>
+</body>
+</html>
+
