@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이미지 캐러셀</title>
+    <style>
+        *{margin: 0; padding: 0;}
+        body{
+            background-color: cornsilk;
+        }
+        main{
+            width: 400px; 
+            margin: 100px auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px; 
+        }
+        div > h1{
+            margin:  20px;
+            display: flex;
+        }
+        div > h2{
+            gap: 5px;
+            margin: 15px;
+            display: flex;
+        }
+        main > img{
+            width: 70%; /* 이미지 비율 조절 */
+            max-width: 300px; /* 이미지 최대 너비 */
+            height: auto; 
+        }
+        button {      
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+        button:disabled {
+            opacity: 0.5; /* 버튼 비활성화 시 흐릿하게 */
+            cursor: not-allowed;
+        }
+        div{
+            display: flex;  
+            font-size: small;
+        }
+        img{
+            width: 10%;
+            height: 150%;
+            margin: 50px;
+        }
+        ul > h2{
+            margin: 15px;
+            display: flex;
+        }
+        ul{
+            width: 120%; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        ul > li{
+            margin: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 30%;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <!-- 이전 버튼 추가 -->
+        <button id="prevBtn">이전 ◁</button>
+        <!-- 이미지 태그 -->
+        <img id="mainImg" src="./P.jfif" alt="프로필">
+        <!-- 다음 버튼 -->
+        <button id="nextBtn">다음 ▷</button>
+    </main>
+    <div>
+        <h1>나를 소개하는 문구 :</h1>
+        <h2>이제 곧 군대를 가야하는 사회 초년생 입니다 앞으로 열심히 따라가 보겠습니다 잘 부탁드려요</h2> 
+    </div> 
+    <ul>
+        <h1>내가 좋아하는것들 :</h1>
+        <h2>애니메이션,옷,음악,동물을 좋아한다</h2>
+    </ul>
+    <div>
+        <img src="./Esfp.jfif" alt="">
+    <ul>
+        <P>나의 MBTI : ESFP </P>
+        <li>나의 하루루틴 : 8시 일어나서 아침에 컴퓨터 학원 9시30분까지 출석 6시까지 수업 저녁에 운동후 집에 가서 쉼 </li> 
+        <li>나의 장점과 단점 : 내 장점은 성격이 밝고 사람들과 쉽게 친해짐 단점은 관심있는것이 아니면 집증하기가 어렵고 고집이 좀 쎔</li>
+        <li>내가 되고싶은 모습 : 돈 벌어서 부모님께 효도하고 건강하게 사는것 </li>
+        <li>내가 가진 스킬 : 사람들과 잘지냄,식가공기능사 자격증</li>
+    </ul>
+    </div>
+    <script>
+        const images = [
+            './p.jfif', // 첫번째 이미지
+            './mi.jfif', // 두 번째 이미지
+            './st.jfif', // 세 번째 이미지
+            './music.png', // 네 번째 이미지
+            './pug.jfif', // 다섯 번째 이미지
+        ];
+
+        let currentIndex = 0; // 현재 보고 있는 이미지 인덱스 (0부터 시작)
+
+        const prevBtn = document.getElementById("prevBtn");
+        const nextBtn = document.getElementById("nextBtn");
+        const mainImg = document.getElementById("mainImg");
+
+        // 페이지 로드될 때 초기 이미지 설정 및 버튼 상태 업데이트
+        function updateImage() {
+            mainImg.src = images[currentIndex];
+            // 첫 번째 이미지일 때는 '이전' 버튼 비활성화
+            prevBtn.disabled = currentIndex === 0;
+            // 마지막 이미지일 때는 '다음' 버튼 비활성화
+            nextBtn.disabled = currentIndex === images.length - 1;
+        }
+
+        // '다음' 버튼 클릭 이벤트 리스너
+        nextBtn.addEventListener("click", () => {
+            if (currentIndex < images.length - 1) {
+                currentIndex++; // 다음 이미지로 이동
+                updateImage(); // 이미지 및 버튼 상태 업데이트
+            }
+        });
+
+        // '이전' 버튼 클릭 이벤트 리스너
+        prevBtn.addEventListener("click", () => {
+            if (currentIndex > 0) {
+                currentIndex--; // 이전 이미지로 이동
+                updateImage(); // 이미지 및 버튼 상태 업데이트
+            }
+        });
+        // 초기 로드 시 함수 실행
+        updateImage();
+
+    </script>
+</body>
+</html>
